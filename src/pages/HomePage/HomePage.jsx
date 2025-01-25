@@ -11,7 +11,6 @@ const HomePage = () => {
     const [product, setProducts] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [handleCartButton, setHandleCartButton]= useState([]);
     const cartItems = useSelector(store => store.cart);
     
 
@@ -28,15 +27,16 @@ const HomePage = () => {
   }
   
     const handleAddToCart=(product)=>{
-      setHandleCartButton(true)
       dispatch(add(product));
-      console.log(handleCartButton)
     }
 
     const goToCart= ()=>{
-      // console.log(handleCartButton)
         navigate('/cart')
       
+    }
+    const handleBuyNow=(product)=>{
+          navigate('/cart')
+          dispatch(add(product));   
     }
   
     const handleNavigate=(q)=>{
@@ -44,15 +44,9 @@ const HomePage = () => {
   }
 
 
-  const handleBuyNow=(product)=>{
-    dispatch(add(product));
-    navigate('/cart')
-  }
 
 
     return (
-      
-
         <div id='bodyContainer'>
         
         {product.products?.map((q) => {
@@ -67,19 +61,18 @@ const HomePage = () => {
                 {/* title div close */}
                     <img src={q?.images} />
                     <div className='priceDiv'>
-                    <span className='price'>Price:  &#8377;{80*Math.floor(q?.price)}</span>
+                    <span className='price'>Price:  &#8377;{(q?.price)}</span>
                     <span className='price'>Discount%: {q?.discountPercentage}%</span>
                     </div>
                    
                 </div>
                  {/* priceDiv close */}
              <div className='btnCart&BuyDiv'>
-             {/* <button className='cartBtn' onClick={handleCartButton ? ()=>goToCart(q):() =>handleAddToCart(q)}>{handleCartButton?"Go to cart":"Add To Cart"}</button> */}
              <button className='cartBtn' 
               onClick={cartItems.length > 0 && cartItems.find((citem) => citem.id === q?.id) ? goToCart:()=>handleAddToCart(q)}>{(cartItems.length > 0 && cartItems.find((citem) => citem.id === q?.id)?"Go to cart":"Add To Cart")}
               </button>
 
-             <button onClick={()=>handleBuyNow(q)}>Buy Now</button>
+             <button onClick={cartItems.length > 0 && cartItems.find((citem) => citem.id === q?.id) ? goToCart:()=>handleBuyNow(q)}>Buy Now</button>
            </div>
            </div>
                 

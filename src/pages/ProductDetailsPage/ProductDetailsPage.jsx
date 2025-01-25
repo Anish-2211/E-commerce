@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {add} from '../../Components/redux/slices/cartSlice'
 
 
@@ -11,6 +11,7 @@ const ProductDetailsPage = () => {
     const[productDetails, setProductDetails]= useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const cartItems = useSelector(store => store.cart);
    
 
     const{id} = useParams();
@@ -26,14 +27,17 @@ const ProductDetailsPage = () => {
 
 
 
-      const handleAddToCart=(product)=>{
-            dispatch(add(product));
-            console.log(add(product))
-          };
-          
-          const handleBuyNow=(product)=>{
-            dispatch(add(product));
-            navigate('/cart')
+       const handleAddToCart=(productDetails)=>{
+            dispatch(add(productDetails));
+          }
+      
+          const goToCart= ()=>{
+              navigate('/cart')
+            
+          }
+          const handleBuyNow=(productDetails)=>{
+                navigate('/cart')
+                dispatch(add(productDetails));   
           }
 
 
@@ -68,8 +72,11 @@ const ProductDetailsPage = () => {
                        </div>
 
                        <div className='btnCart&BuyDiv mt-20 flex justify-between w-[35%]'>
-                      <button className=' bg-white' onClick={()=>handleAddToCart(productDetails)}>Add To Cart</button>
-                      <button className='bg-white' onClick={()=>handleBuyNow(productDetails)}>Buy Now</button>
+                      <button className=' bg-white' onClick={cartItems.length > 0 && cartItems.find((citem) => citem.id === productDetails?.id) ? goToCart:()=>handleAddToCart(productDetails)}>{(cartItems.length > 0 && cartItems.find((citem) => citem.id === productDetails?.id)?"Go to cart":"Add To Cart")}
+
+                      </button>
+                      <button className='bg-white' 
+                      onClick={cartItems.length > 0 && cartItems.find((citem) => citem.id === productDetails?.id) ? goToCart:()=>handleBuyNow(productDetails)}>Buy Now</button>
                     </div>
 
             </div>

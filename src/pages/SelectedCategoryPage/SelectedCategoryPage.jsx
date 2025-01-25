@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { add } from '../Components/redux/slices/cartSlice';
+import { add } from '../../Components/redux/slices/cartSlice';
 
 const SelectedCategoryPage = () => {
     const [selectedCategory, setSelectedCategory]= useState([]);
@@ -50,7 +50,7 @@ const SelectedCategoryPage = () => {
                 {/* title div close */}
                     <img src={q?.images[0]} />
                     <div className='priceDiv'>
-                    <span className='price'>Price:  &#8377;{Math.floor(q?.price)}</span>
+                    <span className='price'>Price:  &#8377;{(q?.price)}</span>
                     <span className='price'>Discount%: {q?.discountPercentage}%</span>
                     </div>
                    

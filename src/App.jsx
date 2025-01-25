@@ -14,8 +14,9 @@ import ContactPage from './pages/ContactPage/ContactPage'
 import AboutPage from './pages/AboutPage/AboutPage'
 import Navbar from './Components/Navbar/Navbar'
 import Categories from './pages/Categories/Categories'
-import SelectedCategoryPage from './SelectedCategoryPage/SelectedCategoryPage'
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage'
+import SelectedCategoryPage from './pages/SelectedCategoryPage/SelectedCategoryPage'
+import AddressDetails from './Components/AddressDetails/AddressDetails'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <div>
       <Header/>
       <Navbar/>
+      {/* <AddressDetails/> */}
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/cart' element={<CartPage/>}/>
